@@ -20,11 +20,7 @@ jobs:
           use-cross: true
           command: build
           args: --target armv7-unknown-linux-gnueabihf --release
-      - run: pwd
-      - run: ls -l $GITHUB_WORKSPACE
-      - run: ls -l $GITHUB_WORKSPACE/target
-      - run: ls -l $GITHUB_WORKSPACE/target/release
-      - run: mv $GITHUB_WORKSPACE/target/release/test-rust-build $GITHUB_WORKSPACE/target/release/test-rust-build-armv7
+      - run: mv $GITHUB_WORKSPACE/target/armv7-unknown-linux-gnueabihf/release/test-rust-build $GITHUB_WORKSPACE/target/armv7-unknown-linux-gnueabihf/release/test-rust-build-armv7
       - uses: softprops/action-gh-release@v1
         with:
-          files: target/release/test-rust-build-armv7
+          files: target/armv7-unknown-linux-gnueabihf/release/test-rust-build-armv7
