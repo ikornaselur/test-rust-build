@@ -20,12 +20,12 @@ jobs:
           use-cross: true
           command: build
           args: --target armv7-unknown-linux-gnueabihf --release
-      - run: mv target/armv7-unknown-linux-gnueabihf/release/test-rust-build target/armv7-unknown-linux-gnueabihf/release/test-rust-build-armv7
+      - run: mv target/armv7-unknown-linux-gnueabihf/release/test-rust-build target/armv7-unknown-linux-gnueabihf/release/test-rust-build-armv7-unknown-linux-gnueabihf
       - uses: softprops/action-gh-release@v1
         with:
-          files: target/armv7-unknown-linux-gnueabihf/release/test-rust-build-armv7
+          files: target/armv7-unknown-linux-gnueabihf/release/test-rust-build-armv7-unknown-linux-gnueabihf
   x86_64-unknown-linux-gnu:
-    name: Linux 64-bit
+    name: 64-bit Linux
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -35,8 +35,24 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --release
-      - run: mv target/release/test-rust-build target/release/test-rust-build-linux-x86_64
+          args: --target x86_64-unknown-linux-gnu --release
+      - run: mv target/release/test-rust-build target/release/test-rust-build-x86_64-unknown-linux-gnu
       - uses: softprops/action-gh-release@v1
         with:
-          files: target/release/test-rust-build-linux-x86_64
+          files: target/release/test-rust-build-x86_64-unknown-linux-gnu
+  x86_64-apple-darwin:
+    name: 64-bit macOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --target x86_64-apple-darwin --release
+      - run: mv target/release/test-rust-build target/release/test-rust-build-x86_64-apple-darwin
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: target/release/test-rust-build-x86_64-apple-darwin
