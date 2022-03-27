@@ -5,7 +5,7 @@ on:
 name: Build artefacts
 
 jobs:
-  linux_arm7:
+  armv7-unknown-linux-gnueabihf:
     name: Linux ARMv7
     runs-on: ubuntu-latest
     steps:
@@ -20,7 +20,23 @@ jobs:
           use-cross: true
           command: build
           args: --target armv7-unknown-linux-gnueabihf --release
-      - run: mv $GITHUB_WORKSPACE/target/armv7-unknown-linux-gnueabihf/release/test-rust-build $GITHUB_WORKSPACE/target/armv7-unknown-linux-gnueabihf/release/test-rust-build-armv7
+      - run: mv target/armv7-unknown-linux-gnueabihf/release/test-rust-build target/armv7-unknown-linux-gnueabihf/release/test-rust-build-armv7
       - uses: softprops/action-gh-release@v1
         with:
           files: target/armv7-unknown-linux-gnueabihf/release/test-rust-build-armv7
+    x86_64-unknown-linux-gnu:
+      name: Linux 64-bit
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - uses: actions-rs/toolchain@v1
+          with:
+            toolchain: stable
+        - uses: actions-rs/cargo@v1
+          with:
+            command: build
+            args: --release
+      - run: mv target/release/test-rust-build target/release/test-rust-build-linux-x86_64
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: target/release/test-rust-build-linux-x86_64
