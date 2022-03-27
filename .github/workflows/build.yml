@@ -25,7 +25,7 @@ jobs:
         with:
           files: target/armv7-unknown-linux-gnueabihf/release/test-rust-build-armv7-unknown-linux-gnueabihf
   x86_64-unknown-linux-gnu:
-    name: 64-bit Linux
+    name: Linux 64-bit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -36,13 +36,13 @@ jobs:
         with:
           command: build
           args: --target x86_64-unknown-linux-gnu --release
-      - run: mv target/release/test-rust-build target/release/test-rust-build-x86_64-unknown-linux-gnu
+      - run: mv target/x86_64-unknown-linux-gnu/release/test-rust-build target/x86_64-unknown-linux-gnu/release/test-rust-build-x86_64-unknown-linux-gnu
       - uses: softprops/action-gh-release@v1
         with:
-          files: target/release/test-rust-build-x86_64-unknown-linux-gnu
+          files: target/x86_64-unknown-linux-gnu/release/test-rust-build-x86_64-unknown-linux-gnu
   x86_64-apple-darwin:
-    name: 64-bit macOS
-    runs-on: macos-latest
+    name: macOS 64-bit
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
@@ -52,7 +52,7 @@ jobs:
         with:
           command: build
           args: --target x86_64-apple-darwin --release
-      - run: mv target/release/test-rust-build target/release/test-rust-build-x86_64-apple-darwin
+      - run: mv target/x86_64-apple-darwin/release/test-rust-build target/x86_64-apple-darwin/release/test-rust-build-x86_64-apple-darwin
       - uses: softprops/action-gh-release@v1
         with:
-          files: target/release/test-rust-build-x86_64-apple-darwin
+          files: target/x86_64-apple-darwin/release/test-rust-build-x86_64-apple-darwin
