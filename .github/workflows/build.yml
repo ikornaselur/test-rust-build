@@ -56,3 +56,26 @@ jobs:
       - uses: softprops/action-gh-release@v1
         with:
           files: target/x86_64-apple-darwin/release/test-rust-build-x86_64-apple-darwin
+  x86_64-pc-windows-gnu:
+    name: Windows 64-bit
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --target x86_64-pc-windows-gnu --release
+      - uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --target x86_64-pc-windows-msvc --release
+      - run: ren target/x86_64-pc-windows-gnu/release/test-rust-build target/x86_64-pc-windows-gnu/release/test-rust-build-x86_64-pc-windows-gnu
+      - run: ren target/x86_64-pc-windows-msvc/release/test-rust-build target/x86_64-pc-windows-msvc/release/test-rust-build-x86_64-pc-windows-msvc
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            target/x86_64-pc-windows-gnu/release/test-rust-build-x86_64-pc-windows-gnu
+            target/x86_64-pc-windows-msvc/release/test-rust-build-x86_64-pc-windows-msvc
